@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | J KRISHNAN & CO</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <!-- Login Section -->
+    <div id="loginSection" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2>Admin Login</h2>
+            <p class="login-subtitle">J KRISHNAN & CO</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <div id="loginError" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="dashboard-container" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1><i class="fas fa-cog"></i> Admin Panel</h1>
+                    <span class="brand">J KRISHNAN & CO</span>
+                </div>
+                <div class="header-actions">
+                    <span id="adminUsername" class="user-info">
+                        <i class="fas fa-user-circle"></i> Admin
+                    </span>
+                    <button id="logoutBtn" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="admin-nav">
+            <button class="nav-tab active" data-tab="newsletters">
+                <i class="fas fa-newspaper"></i> Newsletters
+            </button>
+            <button class="nav-tab" data-tab="gallery">
+                <i class="fas fa-images"></i> Gallery
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Newsletter Section -->
+            <section id="newslettersSection" class="content-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> Manage Newsletters</h2>
+                    <button id="addNewsletterBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Newsletter
+                    </button>
+                </div>
+
+                <!-- Newsletter Form -->
+                <div id="newsletterFormContainer" class="form-container" style="display: none;">
+                    <form id="newsletterForm">
+                        <input type="hidden" id="newsletterId">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newsletterTitle">Title *</label>
+                                <input type="text" id="newsletterTitle" required placeholder="Enter newsletter title">
+                            </div>
+                            <div class="form-group">
+                                <label for="newsletterCategory">Category *</label>
+                                <select id="newsletterCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="GST Update">GST Update</option>
+                                    <option value="Income Tax">Income Tax</option>
+                                    <option value="MCA & ROC">MCA & ROC</option>
+                                    <option value="Audit & Assurance">Audit & Assurance</option>
+                                    <option value="Compliance Alert">Compliance Alert</option>
+                                    <option value="Advisory">Advisory</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsletterSummary">Summary *</label>
+                            <textarea id="newsletterSummary" required placeholder="Brief summary for listing..."
+                                rows="2"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" id="newsletterImageGroup">
+                                <label for="newsletterFile">Featured Image (optional)</label>
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="newsletterFile" accept="image/*">
+                                    <div class="file-input-label">
+                                        <i class="fas fa-image"></i>
+                                        <span>Select image</span>
+                                        <small>JPG, PNG, WEBP</small>
+                                    </div>
+                                </div>
+                                <div id="newsletterPreviewContainer" class="image-preview"></div>
+                                <input type="hidden" id="newsletterImage">
+                            </div>
+                            <div class="form-group">
+                                <label for="newsletterAuthor">Author</label>
+                                <input type="text" id="newsletterAuthor" value="J KRISHNAN & CO">
+                            </div>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="newsletterPublished" checked> Published
+                            </label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Newsletter
+                            </button>
+                            <button type="button" id="cancelNewsletterBtn" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Newsletter List -->
+                <div id="newsletterList" class="items-list">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading newsletters...</div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section id="gallerySection" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-images"></i> Manage Gallery</h2>
+                </div>
+
+                <!-- Image Upload Form - Always Visible -->
+                <div id="imageFormContainer" class="form-container">
+                    <h3 class="upload-title"><i class="fas fa-cloud-upload-alt"></i> Upload New Image</h3>
+                    <form id="imageForm" enctype="multipart/form-data">
+                        <input type="hidden" id="imageId">
+
+                        <!-- Upload Area First -->
+                        <div class="form-group" id="imageUploadGroup">
+                            <label style="font-weight: 600; margin-bottom: 10px; display: block; font-size: 13px;">
+                                <i class="fas fa-image"></i> Select Image Source
+                            </label>
+                            <div
+                                style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 15px; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                                <input type="file" id="imageFile" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    onclick="document.getElementById('imageFile').click()">
+                                    <i class="fas fa-upload"></i> Upload File
+                                </button>
+                                <span style="color: #666;">or</span>
+                                <input type="url" id="imageUrl" placeholder="Paste image URL here..."
+                                    style="flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                            </div>
+                            <div id="imagePreviewContainer" class="image-preview"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="imageTitle">Title *</label>
+                                <input type="text" id="imageTitle" required placeholder="Enter image title">
+                            </div>
+                            <div class="form-group">
+                                <label for="imageCategory">Category</label>
+                                <select id="imageCategory">
+                                    <option value="Other">Other</option>
+                                    <option value="Office">Office</option>
+                                    <option value="Team">Team</option>
+                                    <option value="Events">Events</option>
+                                    <option value="Engagements">Engagements</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="imageDescription">Description (optional)</label>
+                                <textarea id="imageDescription" placeholder="Brief description..." rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="imageOrder">Display Order</label>
+                                <input type="number" id="imageOrder" value="0" min="0" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-upload"></i> Upload Image
+                            </button>
+                            <button type="button" id="resetImageBtn" class="btn btn-secondary">
+                                <i class="fas fa-redo"></i> Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Gallery Grid -->
+                <h3 class="gallery-section-title"><i class="fas fa-th"></i> Uploaded Images</h3>
+                <div id="galleryList" class="gallery-grid">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading images...</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="admin-footer">
+            <p>&copy; 2026 J KRISHNAN & CO. Admin Panel</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Confirm Dialog -->
+    <div id="confirmDialog" class="modal">
+        <div class="modal-content">
+            <h3 id="confirmTitle">Confirm Action</h3>
+            <p id="confirmMessage">Are you sure?</p>
+            <div class="modal-actions">
+                <button id="confirmYes" class="btn btn-danger">Yes, Delete</button>
+                <button id="confirmNo" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
