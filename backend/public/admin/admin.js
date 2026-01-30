@@ -44,7 +44,7 @@ function setupEventListeners() {
     // Image form
     document.getElementById('imageForm').addEventListener('submit', handleImageSubmit);
     document.getElementById('imageFile').addEventListener('change', handleImagePreview);
-    document.getElementById('resetImageBtn').addEventListener('click', resetImageForm);
+    document.getElementById('resetImageBtn').addEventListener('click', () => resetImageForm(true));
 
     // Newsletter Image
     document.getElementById('newsletterFile').addEventListener('change', handleNewsletterImagePreview);
@@ -451,7 +451,7 @@ function resetImageForm(showMsg = true) {
     document.getElementById('imagePreviewContainer').innerHTML = '';
     document.getElementById('imageUploadGroup').style.display = 'block';
     document.getElementById('imageFile').value = '';
-    if (showMsg) showToast('Form reset');
+    if (showMsg === true) showToast('Form reset');
 }
 
 function showEditImageForm(image) {
@@ -528,8 +528,8 @@ async function handleImageSubmit(e) {
             const data = await response.json();
 
             if (data.success) {
-                showToast('Image updated!', 'success');
-                resetImageForm();
+                showToast('image updated successfully', 'success');
+                resetImageForm(false);
                 loadImages();
             } else {
                 showToast(data.message || 'Failed to update image', 'error');
