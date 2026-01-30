@@ -6,7 +6,7 @@
  */
 
 // API Configuration - Update this URL when deploying
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://jkassociatesbackend.onrender.com/api';
 
 // ========================
 // FETCH AND DISPLAY GALLERY IMAGES
