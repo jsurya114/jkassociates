@@ -451,7 +451,7 @@ function resetImageForm(showMsg = true) {
     document.getElementById('imagePreviewContainer').innerHTML = '';
     document.getElementById('imageUploadGroup').style.display = 'block';
     document.getElementById('imageFile').value = '';
-    if (showMsg) showToast('Form reset', 'default');
+    if (showMsg) showToast('Form reset');
 }
 
 function showEditImageForm(image) {
