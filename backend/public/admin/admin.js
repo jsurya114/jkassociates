@@ -345,7 +345,7 @@ async function handleNewsletterSubmit(e) {
 
         if (data.success) {
             console.log('Newsletter saved successfully:', data.data);
-            showToast('Image uploaded!', 'success');
+            showToast('newsletter added successfully', 'success');
             hideNewsletterForm();
             loadNewsletters();
         } else {
@@ -444,14 +444,14 @@ async function loadImages() {
     }
 }
 
-function resetImageForm() {
+function resetImageForm(showMsg = true) {
     document.getElementById('imageForm').reset();
     document.getElementById('imageId').value = '';
     document.getElementById('imageUrl').value = '';
     document.getElementById('imagePreviewContainer').innerHTML = '';
     document.getElementById('imageUploadGroup').style.display = 'block';
     document.getElementById('imageFile').value = '';
-    showToast('Form reset', 'default');
+    if (showMsg) showToast('Form reset', 'default');
 }
 
 function showEditImageForm(image) {
@@ -596,8 +596,8 @@ async function handleImageSubmit(e) {
 
             if (data.success) {
                 console.log('Gallery image added successfully:', data.data);
-                showToast('Image uploaded!', 'success');
-                resetImageForm();
+                showToast('image added successfully in galary', 'success');
+                resetImageForm(false);
                 loadImages();
             } else {
                 console.error('Gallery addition failed:', data);
