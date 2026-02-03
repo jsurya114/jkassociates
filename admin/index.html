@@ -9,7 +9,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../admin/admin.css">
+    <link rel="stylesheet" href="/admin/admin.css">
+    <link rel="icon" type="image/png" href="/images/ca-logo.png">
 </head>
 
 <body>
@@ -21,14 +22,14 @@
             </div>
             <h2>Admin Login</h2>
             <p class="login-subtitle">J KRISHNAN & CO</p>
-            <form id="loginForm">
+            <form id="loginForm" action="javascript:void(0);" method="POST">
                 <div class="form-group">
                     <label for="username"><i class="fas fa-user"></i> Username</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter username">
+                    <input type="text" id="username" required placeholder="Enter username">
                 </div>
                 <div class="form-group">
                     <label for="password"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter password">
+                    <input type="password" id="password" required placeholder="Enter password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">
                     <i class="fas fa-sign-in-alt"></i> Login
@@ -44,7 +45,8 @@
         <header class="admin-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <h1><i class="fas fa-cog"></i> Admin Panel</h1>
+                    <img src="/images/ca-logo.png" alt="Logo" style="height: 40px; margin-right: 15px;">
+                    <h1> Admin Panel</h1>
                     <span class="brand">J KRISHNAN & CO</span>
                 </div>
                 <div class="header-actions">
@@ -245,7 +247,7 @@
         </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script src="/admin/admin.js"></script>
 </body>
 
 </html>

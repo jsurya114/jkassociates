@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         verifyToken();
     } else {
         showLogin();
+        cleanupURL();
     }
 
     // Setup event listeners
@@ -686,4 +687,12 @@ function formatDate(dateString) {
         month: 'short',
         day: 'numeric'
     });
+}
+
+function cleanupURL() {
+    if (window.location.search.includes('username=') || window.location.search.includes('password=')) {
+        const url = new URL(window.location.href);
+        url.search = '';
+        window.history.replaceState({}, document.title, url.pathname);
+    }
 }
