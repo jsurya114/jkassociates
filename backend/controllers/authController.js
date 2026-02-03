@@ -4,6 +4,7 @@
  */
 
 const bcrypt = require('bcryptjs');
+const Admin = require('../models/Admin');
 
 // @desc    Admin login
 // @route   POST /api/auth/login
@@ -20,16 +21,41 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Get admin credentials from environment variables
-        const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-        const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+        // First, try to find admin in database
+        const admin = await Admin.findOne({ username: username.toLowerCase() });
 
-        // Check credentials
-        if (username === adminUsername && password === adminPassword) {
-            // Generate a simple token (in production, use JWT)
+        if (admin) {
+            // Database authentication
+            const isMatch = await admin.comparePassword(password);
+
+            if (isMatch) {
+                // Update last login
+                admin.lastLogin = new Date();
+                await admin.save();
+
+                // Generate token
+                const token = Buffer.from(`${username}:${Date.now()}`).toString('base64');
+
+                return res.status(200).json({
+                    success: true,
+                    message: 'Login successful',
+                    data: {
+                        token,
+                        username: admin.username
+                    }
+                });
+            }
+        }
+
+        // Fallback: Check environment variables (for backwards compatibility)
+        const adminUsername = process.env.ADMIN_USERNAME;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+
+        if (adminUsername && adminPassword &&
+            username === adminUsername && password === adminPassword) {
             const token = Buffer.from(`${username}:${Date.now()}`).toString('base64');
 
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: 'Login successful',
                 data: {
@@ -37,12 +63,13 @@ exports.login = async (req, res) => {
                     username
                 }
             });
-        } else {
-            res.status(401).json({
-                success: false,
-                message: 'Invalid credentials'
-            });
         }
+
+        // Invalid credentials
+        res.status(401).json({
+            success: false,
+            message: 'Invalid credentials'
+        });
 
     } catch (error) {
         console.error('Login error:', error);

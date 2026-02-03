@@ -6,7 +6,7 @@
  */
 
 // API Configuration - Update this URL when deploying
-const API_URL = 'https://jkassociatesbackend.onrender.com/api';
+const API_URL = 'https://api.jkrishnan.co.in/api';
 
 // ========================
 // FETCH AND DISPLAY GALLERY IMAGES

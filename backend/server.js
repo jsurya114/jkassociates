@@ -41,7 +41,9 @@ connectDB()
 app.use(
   cors({
     origin: [
-      "https://jkassociates.onrender.com", // Static frontend
+      "https://www.jkrishnan.co.in",       // Custom domain (www)
+      "https://jkrishnan.co.in",           // Custom domain (root)
+      "https://jkassociatesfrontend.onrender.com", // Render frontend
       "http://localhost:3000",             // Local frontend (optional)
       "http://localhost:5000"              // Local testing
     ],

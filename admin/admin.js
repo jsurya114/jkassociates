@@ -6,7 +6,7 @@
 // ========================
 // CONFIGURATION
 // ========================
-const API_BASE_URL = window.location.origin + '/api';
+const API_BASE_URL = 'https://api.jkrishnan.co.in/api';
 let authToken = localStorage.getItem('adminToken') || null;
 
 // ========================
