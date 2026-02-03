@@ -950,9 +950,9 @@ img.ca-logo {
 }
 
 .contact-infoo {
-  display: flex;
-  align-items: center;
-  gap: 50px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 /* Tablet */
@@ -1012,12 +1012,11 @@ img.ca-logo {
 }
 
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 35px;
-  margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 35px;
+    margin-top: 30px;
 }
-
 /* Service Card */
 .service-box {
   background: #ffffff;
