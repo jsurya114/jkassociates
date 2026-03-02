@@ -11,7 +11,7 @@ const newsletterSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Title is required'],
         trim: true,
-        maxlength: [200, 'Title cannot exceed 200 characters']
+        maxlength: [800, 'Title cannot exceed 800 characters']
     },
 
     // Category/Tag for the newsletter (e.g., GST Update, Income Tax, etc.)
@@ -31,7 +31,7 @@ const newsletterSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Summary is required'],
         trim: true,
-        maxlength: [500, 'Summary cannot exceed 500 characters']
+        maxlength: [1100, 'Summary cannot exceed 1100 characters']
     },
 
     // Full content of the newsletter (optional)
