@@ -48,7 +48,7 @@ async function loadNewsletters() {
                     <div class="newsletter-content">
                         <span class="newsletter-tag">${escapeHtml(newsletter.category)}</span>
                         <h3>${escapeHtml(newsletter.title)}</h3>
-                        <p>${escapeHtml(newsletter.summary)}</p>
+                        <p>${escapeHtml(newsletter.summary.length > 150 ? newsletter.summary.substring(0, 150) + '...' : newsletter.summary)}</p>
                         <a href="newsletter-single.html?id=${newsletter._id}" class="read-more">Read More →</a>
                     </div>
                 </article>
@@ -110,17 +110,32 @@ async function loadSingleNewsletter() {
             if (categoryEl) categoryEl.textContent = newsletter.category;
             if (dateEl) dateEl.textContent = formatDate(newsletter.publishedAt);
             if (contentEl) {
-                // Render content as HTML, converting newlines to <br>
-                let content = newsletter.content || '';
+                // Render content as HTML, converting newlines to <br>. Fallback to summary for older items.
+                let content = newsletter.content || newsletter.summary || '';
+
+                // Format text into paragraphs by splitting on double newlines
+                let formattedContent = content.split(/\n\n+/).map(para => {
+                    if (para.trim() === '') return '';
+                    // Single newlines within a paragraph become <br>
+                    return `<p style="margin-bottom: 20px; line-height: 1.8; color: #444; font-size: 16px;">${para.replace(/\n/g, '<br>')}</p>`;
+                }).join('');
 
                 // Render [[IMAGE:URL]] placeholders as real images
-                content = content.replace(/\[\[IMAGE:(.*?)\]\]/g, (match, url) => {
-                    return `<div class="article-content-image" style="text-align: center; margin: 25px 0;">
+                // If it is inside a paragraph, replace the paragraph entirely or split it
+                formattedContent = formattedContent.replace(/<p[^>]*>\s*\[\[IMAGE:(.*?)\]\]\s*<\/p>/g, (match, url) => {
+                    return `<div class="article-content-image" style="text-align: center; margin: 30px 0;">
                                 <img src="${url}" alt="Article Image" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
                             </div>`;
                 });
 
-                contentEl.innerHTML = content.replace(/\n/g, '<br>');
+                // Fallback if image tag was mixed with text
+                formattedContent = formattedContent.replace(/\[\[IMAGE:(.*?)\]\]/g, (match, url) => {
+                    return `</p><div class="article-content-image" style="text-align: center; margin: 30px 0;">
+                                <img src="${url}" alt="Article Image" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            </div><p style="margin-bottom: 20px; line-height: 1.8; color: #444; font-size: 16px;">`;
+                });
+
+                contentEl.innerHTML = formattedContent;
             }
             if (imageEl && newsletter.imageUrl) imageEl.src = newsletter.imageUrl;
 
