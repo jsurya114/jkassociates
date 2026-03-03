@@ -111,7 +111,7 @@ async function loadSingleNewsletter() {
             if (dateEl) dateEl.textContent = formatDate(newsletter.publishedAt);
             if (contentEl) {
                 // Render content as HTML, converting newlines to <br>
-                let content = newsletter.content;
+                let content = newsletter.content || '';
 
                 // Render [[IMAGE:URL]] placeholders as real images
                 content = content.replace(/\[\[IMAGE:(.*?)\]\]/g, (match, url) => {

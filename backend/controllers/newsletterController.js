@@ -170,6 +170,7 @@ exports.updateNewsletter = async (req, res) => {
         newsletter.title = title || newsletter.title;
         newsletter.category = category || newsletter.category;
         newsletter.summary = summary || newsletter.summary;
+        newsletter.content = content !== undefined ? content : newsletter.content;
         newsletter.author = author || newsletter.author;
         newsletter.isPublished = isPublished !== undefined ? isPublished : newsletter.isPublished;
 

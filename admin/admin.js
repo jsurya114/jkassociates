@@ -227,6 +227,7 @@ function showNewsletterForm(newsletter = null) {
         document.getElementById('newsletterTitle').value = newsletter.title || '';
         document.getElementById('newsletterCategory').value = newsletter.category || '';
         document.getElementById('newsletterSummary').value = newsletter.summary || '';
+        document.getElementById('newsletterContent').value = newsletter.content || '';
         document.getElementById('newsletterImage').value = newsletter.imageUrl || '';
         document.getElementById('newsletterAuthor').value = newsletter.author || 'J KRISHNAN & CO';
         document.getElementById('newsletterPublished').checked = newsletter.isPublished !== false;
@@ -308,6 +309,7 @@ async function handleNewsletterSubmit(e) {
             formData.append('title', document.getElementById('newsletterTitle').value);
             formData.append('category', document.getElementById('newsletterCategory').value);
             formData.append('summary', document.getElementById('newsletterSummary').value);
+            formData.append('content', document.getElementById('newsletterContent').value);
             formData.append('author', document.getElementById('newsletterAuthor').value);
             formData.append('isPublished', document.getElementById('newsletterPublished').checked);
 
@@ -330,6 +332,7 @@ async function handleNewsletterSubmit(e) {
             formData.append('title', document.getElementById('newsletterTitle').value);
             formData.append('category', document.getElementById('newsletterCategory').value);
             formData.append('summary', document.getElementById('newsletterSummary').value);
+            formData.append('content', document.getElementById('newsletterContent').value);
             formData.append('author', document.getElementById('newsletterAuthor').value);
             formData.append('isPublished', document.getElementById('newsletterPublished').checked);
 
