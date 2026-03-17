@@ -37,7 +37,7 @@ a {
 
 header {
   background: #fff;
-  padding: 27px 0;
+  padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -469,7 +469,7 @@ footer {
 }
 
 .logo {
-  width: 240px;
+  width: 330px;
   height: auto;
   float: left;
 }
@@ -1353,7 +1353,7 @@ img.ca-logo {
   }
 
   .logo {
-    width: 230px;
+    width: 280px;
     height: auto;
     float: left;
   }
